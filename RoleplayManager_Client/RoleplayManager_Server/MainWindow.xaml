@@ -1,0 +1,25 @@
+﻿<Window x:Class="RoleplayManager_Server.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RoleplayManager_Server"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <TextBox Name="ChatBox" HorizontalAlignment="Left" Margin="0,247,0,0" TextWrapping="Wrap" Text="" Width="792" Height="148" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="0,395,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="717"/>
+        <Button Content="Send" HorizontalAlignment="Left" Margin="722,395,0,0" VerticalAlignment="Top" Width="70" Height="23"/>
+        <TextBox Name="PortBox" HorizontalAlignment="Left" Height="23" Margin="78,71,0,0" TextWrapping="Wrap" Text="Port" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Start Server" HorizontalAlignment="Left" Margin="78,99,0,0" VerticalAlignment="Top" Width="120" Height="22" Click="Button_Click"/>
+
+    </Grid>
+</Window>
