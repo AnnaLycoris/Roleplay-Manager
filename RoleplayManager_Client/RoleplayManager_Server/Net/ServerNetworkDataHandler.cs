@@ -5,15 +5,19 @@ using System.Collections.Generic;
 namespace RoleplayManager_Server.Net
 {
     class ServerNetworkDataHandler {
-        private delegate void Packet_(int index, byte[] data);
+
+        #region Properties and Variables
+
+        private delegate void Packet_(int index,byte[] data);
         private static Dictionary<int,Packet_> Packets;
 
+        #endregion
+
         public static void InitializeNetworkPackets() {
-            //Console.WriteLine("Initialize Network Packages");
-            MainWindow.WriteChatMessage("Initializing Network Packages");
             Packets = new Dictionary<int,Packet_> {
                 {(int)ClientPackets.CConnectionOK, HandleConnectionOK},
-                {(int)ClientPackets.CChatMessage, HandleChatMessage}
+                {(int)ClientPackets.CChatMessage, HandleChatMessage},
+                {(int)ClientPackets.CUsername, HandleUsername }
             };
         }
 
@@ -28,7 +32,9 @@ namespace RoleplayManager_Server.Net
             }
         }
 
-        public static void HandleConnectionOK(int index, byte[] data) {
+        #region Individual Packet Handlers
+
+        public static void HandleConnectionOK(int index,byte[] data) {
             PacketBuffer buffer = new PacketBuffer();
             buffer.WriteBytes(data);
             buffer.ReadInteger();
@@ -46,9 +52,27 @@ namespace RoleplayManager_Server.Net
             buffer.ReadInteger();
             string msg = buffer.ReadString();
             buffer.Dispose();
-            
-            MainWindow.WriteChatMessage(index + ": " + msg);
-            TCPServer.SendChatMessage(index, msg);
+
+            string name = TCPServer.GetUsernameFromIndex(index);
+
+            MainWindow.WriteChatMessage("[" + index + "]" + name + ": " + msg);
+            TCPServer.SendChatMessage(index, msg, name);
         }
+
+        public static void HandleUsername(int index,byte[] data) {
+            PacketBuffer buffer = new PacketBuffer();
+            buffer.WriteBytes(data);
+            buffer.ReadInteger();
+            string name = buffer.ReadString();
+            buffer.Dispose();
+
+            TCPServer.SetClientUsername(index, name);
+
+            MainWindow.WriteChatMessage("User " + index + " has registered as: " + name);
+
+            TCPServer.BroadcastUsernames();
+        }
+
+        #endregion
     }
 }

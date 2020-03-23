@@ -11,15 +11,37 @@
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"        
-        Background="{DynamicResource MaterialDesignPaper}"
+        Background="#FF383838"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Roleplay Manager Server" Height="450" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True">
+
     <Grid>
-        <TextBox Name="ChatBox" HorizontalAlignment="Left" Margin="0,247,0,0" TextWrapping="Wrap" Text="" Width="792" Height="148" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="0,395,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="717"/>
-        <Button Content="Send" HorizontalAlignment="Left" Margin="722,395,0,0" VerticalAlignment="Top" Width="70" Height="23"/>
-        <TextBox Name="PortBox" HorizontalAlignment="Left" Height="23" Margin="78,71,0,0" TextWrapping="Wrap" Text="Port" VerticalAlignment="Top" Width="120"/>
-        <Button Content="Start Server" HorizontalAlignment="Left" Margin="78,99,0,0" VerticalAlignment="Top" Width="120" Height="22" Click="Button_Click"/>
+        <TextBox Name="TB_ChatBox" IsReadOnly="true" Margin="0,0,0,28" TextWrapping="Wrap" Height="162" VerticalAlignment="Bottom" BorderBrush="#00000000" Background="#50000000"/>
+        <TextBox Name="TB_InputBox" Height="28" Margin="0,0,75,0" TextWrapping="Wrap" Text="" materialDesign:HintAssist.Hint="Broadcast Message as Server" VerticalAlignment="Bottom" Background="#50000000" KeyDown="InputBox_KeyDown"/>
+        <TextBox Name="TB_PortBox" HorizontalAlignment="Left" Height="28" Margin="80,142,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Port" VerticalAlignment="Top" Width="130"/>
+        <TextBox Name="TB_Error" IsReadOnly="true" Margin="80,0,460,308" TextWrapping="Wrap" Height="69" VerticalAlignment="Bottom" BorderBrush="#00000000" Background="#50000000"/>
+
+        <Button Name="Btn_Send" Content="Send" HorizontalAlignment="Right" Margin="0,0" VerticalAlignment="Bottom" Width="75" Height="28" Click="Btn_Send_Click"/>
+        <Button Name="Btn_StartServer" Content="Start Server" HorizontalAlignment="Left" Margin="215,142,0,0" VerticalAlignment="Top" Width="125" Height="28" Click="Btn_StartServer_Click"/>
+
+        <Grid Height="50" Margin="0,0,0,0" VerticalAlignment="Top" Background="{DynamicResource SecondaryAccentBrush}" MouseDown="Grid_MouseDown">
+            <TextBlock Text="Roleplay Manager Server" HorizontalAlignment="Left" Margin="15,0,0,0" FontSize="22" VerticalAlignment="Center"/>
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Right" Orientation="Horizontal">
+                <TextBlock Text="Yulivee / Njorgrim" VerticalAlignment="Center" FontSize="16" Margin="10,0"/>
+                <Button Width="55" Height="50" Background="{x:Null}" BorderBrush="{x:Null}" Click="Btn_Github_Click">
+                    <materialDesign:PackIcon Kind="GithubCircle" Width="25" Height="25"/>
+                </Button>
+                <Button Width="55" Height="50" Background="{x:Null}" BorderBrush="{x:Null}" Click="Btn_Minimize_Click">
+                    <materialDesign:PackIcon Kind="WindowMinimize" Width="25" Height="25"/>
+                </Button>
+                <Button Width="55" Height="50" Background="{x:Null}" BorderBrush="{x:Null}" Click="Btn_Maximize_Click">
+                    <materialDesign:PackIcon Kind="WindowMaximize" Width="25" Height="25"/>
+                </Button>
+                <Button Width="55" Height="50" Background="{x:Null}" BorderBrush="{x:Null}" Click="Btn_Exit_Click">
+                    <materialDesign:PackIcon Kind="Close"  Width="25" Height="25"/>
+                </Button>
+            </StackPanel>
+        </Grid>
 
     </Grid>
 </Window>

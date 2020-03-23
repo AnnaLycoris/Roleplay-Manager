@@ -38,10 +38,10 @@
             <TextBox Name="IPBox" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,110,0,0" Width="150" materialDesign:HintAssist.Hint="Ip Address" Height="30"/>
             <TextBox Name="PortBox" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,150,0,0" Width="150" materialDesign:HintAssist.Hint="Port" Height="30"/>
             <TextBox Name="NameBox" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,130,0,0" Width="150" materialDesign:HintAssist.Hint="Username" Height="30" Visibility="Collapsed"/>
-            <Button Name="Btn_Connect" Content="Connect" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,200,0,0" Width="150" Height="30" Click="Button_Click"/>
-            <Button Name="Btn_SetName" Content="Set Name" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,200,0,0" Width="150" Height="30" Visibility="Collapsed" Click="Button_Click_2"/>
+            <Button Name="Btn_Connect" Content="Connect" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,200,0,0" Width="150" Height="30" Click="Btn_Connect_Click"/>
+            <Button Name="Btn_SetName" Content="Set Name" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,200,0,0" Width="150" Height="30" Visibility="Collapsed" Click="Btn_SetName_Click"/>
         </Grid>
-        <Button Background="{x:Null}" Margin="10" BorderBrush="{x:Null}" VerticalAlignment="Bottom" HorizontalAlignment="Center" Click="Button_Click_1">
+        <Button Background="{x:Null}" Margin="10" BorderBrush="{x:Null}" VerticalAlignment="Bottom" HorizontalAlignment="Center" Click="Btn_Exit_Click">
             <TextBlock Foreground="{DynamicResource MaterialDesignBody}" Text="Close RoleplayManager"/>
         </Button>
     </Grid>

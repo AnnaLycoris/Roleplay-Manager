@@ -7,18 +7,23 @@ namespace RoleplayManager_Client.Net {
 
     class TCPClient {
 
-        private static Socket socket = new Socket(AddressFamily.InterNetwork,SocketType.Stream,ProtocolType.Tcp);
+        #region Properties and Variables
+
+        private static Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         private static byte[] asyncbuffer = new byte[1024];
         private static bool connected;
 
+        #endregion
+
+        //Opens socket connection via Async context using ConnectCallback
         public static void StartClient(string ip, int port) {
-            //Console.WriteLine("Connecting to server...");
             LoginWindow.WriteError("Attempting to connect...");
-            socket.BeginConnect(ip,port,new AsyncCallback(ConnectCallback),socket);
+            socket.BeginConnect(ip, port, new AsyncCallback(ConnectCallback), socket);
         }
 
         private static void ConnectCallback(IAsyncResult ar) {
             //Catch exception when connection cannot be established
+            //and output the error to login window.
             try {
                 socket.EndConnect(ar);
             } catch (Exception e) {
@@ -26,8 +31,9 @@ namespace RoleplayManager_Client.Net {
                 return;
             }
 
-            LoginWindow.OpenMainWindow();
+            LoginWindow.ConnectionSuccessful();
             connected = true;
+            //Establish infinite listening loop for receiving network data.
             while(connected) {
                 OnReceive();
             }
@@ -43,12 +49,11 @@ namespace RoleplayManager_Client.Net {
                 currentRead = totalRead = socket.Receive(sizeInfo);
 
                 if (totalRead <= 0) {
-                    //Console.WriteLine("Connection Lost.");
                     MainWindow.WriteChatMessage("Connection Lost.");
                     connected = false;
                 } else {
                     while(totalRead < sizeInfo.Length && currentRead > 0) {
-                        currentRead = socket.Receive(sizeInfo,totalRead,sizeInfo.Length - totalRead,SocketFlags.None);
+                        currentRead = socket.Receive(sizeInfo, totalRead, sizeInfo.Length - totalRead, SocketFlags.None);
                         totalRead += currentRead;
                     }
 
@@ -61,17 +66,15 @@ namespace RoleplayManager_Client.Net {
                     byte[] data = new byte[messageSize];
 
                     totalRead = 0;
-                    currentRead = totalRead = socket.Receive(data,totalRead,data.Length - totalRead,SocketFlags.None);
+                    currentRead = totalRead = socket.Receive(data, totalRead, data.Length - totalRead, SocketFlags.None);
                     while(totalRead < messageSize && currentRead > 0) {
-                        currentRead = socket.Receive(data,totalRead,data.Length - totalRead,SocketFlags.None);
+                        currentRead = socket.Receive(data, totalRead, data.Length - totalRead, SocketFlags.None);
                         totalRead += currentRead;
                     }
 
-                    //HandleNetworkInformation
                     ClientNetworkDataHandler.HandleNetworkInformation(data);
                 }
             } catch (Exception e) {
-                //Console.WriteLine("Connection Lost.");
                 MainWindow.WriteChatMessage("Connection Lost: Exception " + e.Message);
                 connected = false;
             }
@@ -81,7 +84,10 @@ namespace RoleplayManager_Client.Net {
             socket.Send(data);
         }
 
-        public static void ConnectionOK() {
+        #region Individial Packet Senders
+
+        //Client Packet 1
+        public static void SendConnectionOK() {
             PacketBuffer buffer = new PacketBuffer();
             buffer.WriteInteger((int) ClientPackets.CConnectionOK);
             buffer.WriteString("Successfully Connected!");
@@ -89,12 +95,24 @@ namespace RoleplayManager_Client.Net {
             buffer.Dispose();
         }
 
-        public static void ChatMessage(string msg) {
+        //Client Packet 2
+        public static void SendChatMessage(string msg) {
             PacketBuffer buffer = new PacketBuffer();
             buffer.WriteInteger((int) ClientPackets.CChatMessage);
             buffer.WriteString(msg);
             SendData(buffer.ToArray());
             buffer.Dispose();
         }
+
+        //Client Packet 3
+        public static void SendUserName(string name) {
+            PacketBuffer buffer = new PacketBuffer();
+            buffer.WriteInteger((int) ClientPackets.CUsername);
+            buffer.WriteString(name);
+            SendData(buffer.ToArray());
+            buffer.Dispose();
+        }
+
+        #endregion
     }
 }

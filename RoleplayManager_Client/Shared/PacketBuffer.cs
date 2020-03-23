@@ -4,12 +4,19 @@ using System.Text;
 
 namespace Shared {
     class PacketBuffer : IDisposable {
+
+        #region Properties and Variables
+
         List<byte> bufferList;
         byte[] readBuffer;
         int readPos;
         bool bufferUpdate = false;
 
-        public PacketBuffer () {
+        #endregion
+
+        #region Member Functions
+
+        public PacketBuffer() {
             bufferList = new List<byte>();
             readPos = 0;
         }
@@ -35,7 +42,10 @@ namespace Shared {
             readPos = 0;
         }
 
-        //Write Data
+        #endregion
+
+        #region Write Data
+
         public void WriteBytes(byte[] input) {
             bufferList.AddRange(input);
             bufferUpdate = true;
@@ -58,7 +68,10 @@ namespace Shared {
             bufferUpdate = true;
         }
 
-        //Read Data
+        #endregion
+
+        #region Read Data
+
         public int ReadInteger(bool peek = true) {
             if(bufferList.Count > readPos) {
                 if(bufferUpdate) {
@@ -104,7 +117,7 @@ namespace Shared {
                 throw new Exception("Buffer out of bounds");
             }
         }
-        public byte[] ReadBytes(int length, bool peek = true) {
+        public byte[] ReadBytes(int length,bool peek = true) {
             if(bufferUpdate) {
                 readBuffer = bufferList.ToArray();
                 bufferUpdate = false;
@@ -128,7 +141,10 @@ namespace Shared {
             return value;
         }
 
-        //IDisposable
+        #endregion
+
+        #region IDisposable
+
         private bool disposedValue = false;
         protected virtual void Dispose(bool disposing) {
             if(!disposedValue) {
@@ -144,6 +160,8 @@ namespace Shared {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
+        #endregion
 
     }
 }

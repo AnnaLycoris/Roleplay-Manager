@@ -39,33 +39,28 @@
     </Window.Triggers>
 
     <Grid>
-        <Path Name="BGPath" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,-8,-8" Width="1072" Height="712" Data="" Stroke="#70000000" StrokeThickness="2"/>
         <TextBox Name="ChatBox" IsReadOnly="true" Margin="50,0,0,40" TextWrapping="Wrap" Height="150" VerticalAlignment="Bottom" BorderBrush="#00000000" Background="#50000000"/>
         <TextBox Name="InputBox" Height="40" Margin="50,0,70,0" TextWrapping="Wrap" Text="" materialDesign:HintAssist.Hint="Send Message" VerticalAlignment="Bottom" Background="#50000000" KeyDown="InputBox_KeyDown"/>
-        <Button Content="Send" Height="40" Click="Button_Click_1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="70"/>
+        <Button Content="Send" Height="40" Click="Btn_Send_Click" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="70"/>
         <Grid Height="50" VerticalAlignment="Top" Background="{DynamicResource SecondaryAccentBrush}" MouseDown="Grid_MouseDown">
             <materialDesign:PopupBox HorizontalAlignment="Left" VerticalAlignment="Center" Margin="60,0" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
                 <materialDesign:PopupBox.ToggleContent>
                     <materialDesign:PackIcon Kind="Account" Width="25" Height="25" Foreground="{DynamicResource MaterialDesignBody}"/>
                 </materialDesign:PopupBox.ToggleContent>
-                <StackPanel MinWidth="100">
-                    <TextBlock Text="Player 1" Margin="10,5"/>
-                    <TextBlock Text="Player 2" Margin="10,5"/>
-                    <TextBlock Text="Player 3" Margin="10,5"/>
-                    <TextBlock Text="Player 4" Margin="10,5"/>
+                <StackPanel Name="SP_UserList" MinWidth="100">
                 </StackPanel>
             </materialDesign:PopupBox>
             <TextBlock Name="TB_Username" Text="Name" HorizontalAlignment="Left" Margin="100,15" FontSize="18"/>
-            <TextBlock Text="Roleplay Manager" HorizontalAlignment="Center" FontSize="22" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesignBody}"/>
+            <TextBlock Text="Roleplay Manager" HorizontalAlignment="Center" FontSize="22" VerticalAlignment="Center"/>
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Right" Orientation="Horizontal">
-                <TextBlock Text="Dennis Tkocz" VerticalAlignment="Center" FontSize="16" Margin="10,0"/>
-                <Button Width="55" Height="50" Background="{x:Null}" BorderBrush="{x:Null}">
+                <TextBlock Text="Yulivee / Njorgrim" VerticalAlignment="Center" FontSize="16" Margin="10,0"/>
+                <Button Width="55" Height="50" Background="{x:Null}" BorderBrush="{x:Null}" Click="Btn_Github_Click">
                     <materialDesign:PackIcon Kind="GithubCircle" Width="25" Height="25"/>
                 </Button>
-                <Button Width="55" Height="50" Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_Click_3">
+                <Button Width="55" Height="50" Background="{x:Null}" BorderBrush="{x:Null}" Click="Btn_Minimize_Click">
                     <materialDesign:PackIcon Kind="WindowMinimize" Width="25" Height="25"/>
                 </Button>
-                <Button Width="55" Height="50" Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_Click_2">
+                <Button Width="55" Height="50" Background="{x:Null}" BorderBrush="{x:Null}" Click="Btn_Maximize_Click">
                     <materialDesign:PackIcon Kind="WindowMaximize" Width="25" Height="25"/>
                 </Button>
                 <materialDesign:PopupBox HorizontalAlignment="Right" Margin="10" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
@@ -96,7 +91,7 @@
                     <ListViewItem Height="50">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="ViewDashboard" Width="35" Height="35"/>
-                            <TextBlock Text="Dashboard" FontSize="22" VerticalAlignment="Center" Margin="10,0"/>
+                            <TextBlock Text="Dummy" FontSize="22" VerticalAlignment="Center" Margin="10,0"/>
                         </StackPanel>
                     </ListViewItem>
                 </ListView>
