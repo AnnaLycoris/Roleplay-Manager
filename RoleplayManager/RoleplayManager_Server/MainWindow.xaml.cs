@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
+using System.Windows;
 using System.Windows.Input;
 
 namespace RoleplayManager_Server {
@@ -25,13 +27,13 @@ namespace RoleplayManager_Server {
         #region UI Functionality
 
         private void Grid_MouseDown(object sender,System.Windows.Input.MouseButtonEventArgs e) {
-            if(e.ChangedButton == MouseButton.Left) {
+            if (e.ChangedButton == MouseButton.Left) {
                 this.DragMove();
             }
         }
 
         private void Btn_Maximize_Click(object sender,RoutedEventArgs e) {
-            if(WindowState == WindowState.Maximized) {
+            if (WindowState == WindowState.Maximized) {
                 WindowState = WindowState.Normal;
             } else if(WindowState == WindowState.Normal) {
                 WindowState = WindowState.Maximized;
@@ -48,7 +50,18 @@ namespace RoleplayManager_Server {
         }
 
         private void Btn_Github_Click(object sender,RoutedEventArgs e) {
-            System.Diagnostics.Process.Start("https://github.com/Njorgrim/Roleplay-Manager");
+            string url = "https://github.com/Njorgrim/Roleplay-Manager";
+
+            try {
+                Process.Start(url);
+            } catch {
+                if(RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) {
+                    url = url.Replace("&","^&");
+                    Process.Start(new ProcessStartInfo("cmd",$"/c start {url}") { CreateNoWindow = true });
+                } else {
+                    throw;
+                }
+            }
         }
 
         private void Btn_StartServer_Click(object sender,RoutedEventArgs e) {
@@ -71,7 +84,7 @@ namespace RoleplayManager_Server {
         #region Chat Functionality
 
         private void Btn_Send_Click(object sender,RoutedEventArgs e) {
-            TB_ChatBox.AppendText("\n[Server]: " + TB_InputBox.Text);
+            TB_ChatBox.AppendText("[Server]: " + TB_InputBox.Text + "\n");
             Net.TCPServer.BroadcastChatMessage(TB_InputBox.Text);
             TB_InputBox.Text = "";
             TB_ChatBox.ScrollToEnd();
@@ -79,7 +92,7 @@ namespace RoleplayManager_Server {
 
         private void InputBox_KeyDown(object sender,System.Windows.Input.KeyEventArgs e) {
             if(e.Key == System.Windows.Input.Key.Enter) {
-                TB_ChatBox.AppendText("\n[Server]: " + TB_InputBox.Text);
+                TB_ChatBox.AppendText("[Server]: " + TB_InputBox.Text + "\n");
                 Net.TCPServer.BroadcastChatMessage(TB_InputBox.Text);
                 TB_InputBox.Text = "";
                 TB_ChatBox.ScrollToEnd();
@@ -88,7 +101,7 @@ namespace RoleplayManager_Server {
 
         public static void WriteChatMessage(string msg) {
             mWindow.Dispatcher.Invoke(() => {
-                mWindow.TB_ChatBox.AppendText("\n" + msg);
+                mWindow.TB_ChatBox.AppendText(msg + "\n");
                 mWindow.TB_ChatBox.ScrollToEnd();
             });
         }

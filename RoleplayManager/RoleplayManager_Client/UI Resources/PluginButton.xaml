@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="RoleplayManager_Client.UI_Resources.PluginButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RoleplayManager_Client.UI_Resources"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal" 
+             TextOptions.TextRenderingMode="Auto" 
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             mc:Ignorable="d" 
+             d:DesignHeight="50" d:DesignWidth="200">
+    <Grid>
+        <Button Name="Btn_Clickable" Background="{x:Null}" BorderThickness="0" Height="50" Width="200" Panel.ZIndex="1"/>
+        <StackPanel Orientation="Horizontal">
+            <materialDesign:PackIcon Kind="DesktopMacDashboard"  Width="35" Height="35" VerticalAlignment="Center"/>
+            <TextBlock Name="TB_Caption" FontSize="18" VerticalAlignment="Center" Margin="10,0" Text=""/>
+        </StackPanel>
+            
+    </Grid>
+</UserControl>

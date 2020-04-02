@@ -16,7 +16,8 @@ namespace RoleplayManager_Client.Net {
             Packets = new Dictionary<int,Packet_> {
                 {(int)ServerPackets.SConnectionOK, HandleConnectionOK},
                 {(int)ServerPackets.SChatMessage, HandleChatMessage},
-                {(int)ServerPackets.SBroadcastUsernames, HandleUsernameBroadcast}
+                {(int)ServerPackets.SBroadcastUsernames, HandleUsernameBroadcast},
+                {(int)ServerPackets.SPluginPacket, HandlePluginPacket}
             };
         }
 
@@ -72,6 +73,18 @@ namespace RoleplayManager_Client.Net {
             }
 
             MainWindow.mWindow.RefreshUserList(users);
+        }
+
+        public static void HandlePluginPacket(byte[] data) {
+            PacketBuffer buffer = new PacketBuffer();
+            buffer.WriteBytes(data);
+            buffer.ReadInteger();
+            string pluginName = buffer.ReadString();
+            string senderUsername = buffer.ReadString();
+            string pluginData = buffer.ReadString();
+
+            bool isOwnPacket = (senderUsername == MainWindow.username);
+            MainWindow.pm.OnReceivedPluginPacket(pluginName, senderUsername, isOwnPacket, pluginData);
         }
 
         #endregion

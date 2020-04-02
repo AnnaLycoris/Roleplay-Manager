@@ -17,7 +17,8 @@ namespace RoleplayManager_Server.Net
             Packets = new Dictionary<int,Packet_> {
                 {(int)ClientPackets.CConnectionOK, HandleConnectionOK},
                 {(int)ClientPackets.CChatMessage, HandleChatMessage},
-                {(int)ClientPackets.CUsername, HandleUsername }
+                {(int)ClientPackets.CUsername, HandleUsername },
+                {(int)ClientPackets.CPluginPacket, HandlePluginPacket}
             };
         }
 
@@ -69,6 +70,18 @@ namespace RoleplayManager_Server.Net
             MainWindow.WriteChatMessage("User " + index + " has registered as: " + name);
 
             TCPServer.BroadcastUsernames();
+        }
+
+        public static void HandlePluginPacket(int index, byte[] data) {
+            PacketBuffer buffer = new PacketBuffer();
+            buffer.WriteBytes(data);
+            buffer.ReadInteger();
+            string pluginName = buffer.ReadString();
+            string pluginData = buffer.ReadString();
+
+            MainWindow.WriteChatMessage("User [" + index + "] " + TCPServer.GetUsernameFromIndex(index) + " sent Plugin Packet from Plugin: " + pluginName);
+
+            TCPServer.BroadcastPluginPacket(pluginName, index, pluginData);
         }
 
         #endregion

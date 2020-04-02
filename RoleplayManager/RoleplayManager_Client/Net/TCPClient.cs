@@ -113,6 +113,16 @@ namespace RoleplayManager_Client.Net {
             buffer.Dispose();
         }
 
+        //Client Packet 4
+        public static void SendPluginPacket(string pluginName, string data) {
+            PacketBuffer buffer = new PacketBuffer();
+            buffer.WriteInteger((int) ClientPackets.CPluginPacket);
+            buffer.WriteString(pluginName);
+            buffer.WriteString(data);
+            SendData(buffer.ToArray());
+            buffer.Dispose();
+        }
+
         #endregion
     }
 }

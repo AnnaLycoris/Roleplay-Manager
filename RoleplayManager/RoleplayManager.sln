@@ -1,19 +1,23 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2016
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29920.165
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoleplayManager_Client", "RoleplayManager_Client\RoleplayManager_Client.csproj", "{325645EC-2FE8-4B89-8E85-68C906F65927}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoleplayManager_Client", "RoleplayManager_Client\RoleplayManager_Client.csproj", "{325645EC-2FE8-4B89-8E85-68C906F65927}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoleplayManager_Server", "RoleplayManager_Server\RoleplayManager_Server.csproj", "{1EB97F8D-AED5-4B5A-A83D-8E8F0C7F144A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoleplayManager_Server", "RoleplayManager_Server\RoleplayManager_Server.csproj", "{1EB97F8D-AED5-4B5A-A83D-8E8F0C7F144A}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared", "Shared\Shared.shproj", "{207AB61F-E6BB-4D88-ADDA-AA0C0A5C0450}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PluginBase", "PluginBase\PluginBase.csproj", "{DCD7A1B2-A662-47A6-9D25-DC98DAAC1ADA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DefaultDiceroll", "DefaultDiceroll\DefaultDiceroll.csproj", "{8110B10A-45FF-4C49-B218-39E79E2974EF}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Shared\Shared.projitems*{1eb97f8d-aed5-4b5a-a83d-8e8f0c7f144a}*SharedItemsImports = 4
+		Shared\Shared.projitems*{1eb97f8d-aed5-4b5a-a83d-8e8f0c7f144a}*SharedItemsImports = 5
 		Shared\Shared.projitems*{207ab61f-e6bb-4d88-adda-aa0c0a5c0450}*SharedItemsImports = 13
-		Shared\Shared.projitems*{325645ec-2fe8-4b89-8e85-68c906f65927}*SharedItemsImports = 4
+		Shared\Shared.projitems*{325645ec-2fe8-4b89-8e85-68c906f65927}*SharedItemsImports = 5
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,6 +32,14 @@ Global
 		{1EB97F8D-AED5-4B5A-A83D-8E8F0C7F144A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1EB97F8D-AED5-4B5A-A83D-8E8F0C7F144A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1EB97F8D-AED5-4B5A-A83D-8E8F0C7F144A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCD7A1B2-A662-47A6-9D25-DC98DAAC1ADA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCD7A1B2-A662-47A6-9D25-DC98DAAC1ADA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCD7A1B2-A662-47A6-9D25-DC98DAAC1ADA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCD7A1B2-A662-47A6-9D25-DC98DAAC1ADA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8110B10A-45FF-4C49-B218-39E79E2974EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8110B10A-45FF-4C49-B218-39E79E2974EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8110B10A-45FF-4C49-B218-39E79E2974EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8110B10A-45FF-4C49-B218-39E79E2974EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

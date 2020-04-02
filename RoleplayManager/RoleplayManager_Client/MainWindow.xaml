@@ -39,6 +39,7 @@
     </Window.Triggers>
 
     <Grid>
+        <Grid Name="PluginContainer" Margin="50,50,0,190"/>
         <TextBox Name="ChatBox" IsReadOnly="true" Margin="50,0,0,40" TextWrapping="Wrap" Height="150" VerticalAlignment="Bottom" BorderBrush="#00000000" Background="#50000000"/>
         <TextBox Name="InputBox" Height="40" Margin="50,0,70,0" TextWrapping="Wrap" Text="" materialDesign:HintAssist.Hint="Send Message" VerticalAlignment="Bottom" Background="#50000000" KeyDown="InputBox_KeyDown"/>
         <Button Content="Send" Height="40" Click="Btn_Send_Click" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="70"/>
@@ -51,7 +52,10 @@
                 </StackPanel>
             </materialDesign:PopupBox>
             <TextBlock Name="TB_Username" Text="Name" HorizontalAlignment="Left" Margin="100,15" FontSize="18"/>
-            <TextBlock Text="Roleplay Manager" HorizontalAlignment="Center" FontSize="22" VerticalAlignment="Center"/>
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="DiceD20" Height="40" Width="40" Margin="10,0"/>
+                <TextBlock Text="Roleplay Manager" HorizontalAlignment="Center" FontSize="22" VerticalAlignment="Center"/>
+            </StackPanel>
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Right" Orientation="Horizontal">
                 <TextBlock Text="Yulivee / Njorgrim" VerticalAlignment="Center" FontSize="16" Margin="10,0"/>
                 <Button Width="55" Height="50" Background="{x:Null}" BorderBrush="{x:Null}" Click="Btn_Github_Click">
@@ -87,7 +91,7 @@
                 <Grid Height="150" Background="White">
                     <Image Source="Properties/Sunset.png" Width="200"/>
                 </Grid>
-                <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                <ListView Name="LV_PluginContainer"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled">
                     <ListViewItem Height="50">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="ViewDashboard" Width="35" Height="35"/>

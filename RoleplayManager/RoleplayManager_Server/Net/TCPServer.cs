@@ -145,6 +145,20 @@ namespace RoleplayManager_Server.Net {
             buffer.Dispose();
         }
 
+        public static void BroadcastPluginPacket(string pluginName, int index, string pluginData) {
+            foreach (Client c in clients) {
+                if (c.socket != null) {
+                    PacketBuffer buffer = new PacketBuffer();
+                    buffer.WriteInteger((int) ServerPackets.SPluginPacket);
+                    buffer.WriteString(pluginName);
+                    buffer.WriteString(TCPServer.GetUsernameFromIndex(index));
+                    buffer.WriteString(pluginData);
+                    SendDataTo(c.index,buffer.ToArray());
+                    buffer.Dispose();
+                }
+            }
+        }
+
         #endregion
     }
 

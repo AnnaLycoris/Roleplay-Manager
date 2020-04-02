@@ -2,6 +2,10 @@
 using System.Windows.Input;
 using System.Collections.Generic;
 using System.Windows.Controls;
+using RoleplayManager_Client.UI_Resources;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace RoleplayManager_Client {
 
@@ -9,9 +13,12 @@ namespace RoleplayManager_Client {
         #region Properties and Variables
 
         public static MainWindow mWindow;
+        public static API.PluginManager pm;
         public static string ip;
         public static int port;
         public static string username;
+        
+        private ObservableCollection<PluginButton> lv_pluginList = new ObservableCollection<PluginButton>();
 
         #endregion
 
@@ -26,8 +33,12 @@ namespace RoleplayManager_Client {
                 mWindow = this;
             }
             InitializeComponent();
+            LV_PluginContainer.Items.Clear();
+            LV_PluginContainer.ItemsSource = lv_pluginList;
 
             Net.ClientNetworkDataHandler.InitializeNetworkPackets();
+
+            pm = new API.PluginManager();
         }
 
         #endregion
@@ -75,13 +86,13 @@ namespace RoleplayManager_Client {
         }
 
         private void Grid_MouseDown(object sender,System.Windows.Input.MouseButtonEventArgs e) {
-            if(e.ChangedButton == MouseButton.Left) {
+            if (e.ChangedButton == MouseButton.Left) {
                 this.DragMove();
             }
         }
 
         private void Btn_Maximize_Click(object sender,RoutedEventArgs e) {
-            if(WindowState == WindowState.Maximized) {
+            if (WindowState == WindowState.Maximized) {
                 WindowState = WindowState.Normal;
             } else if(WindowState == WindowState.Normal) {
                 WindowState = WindowState.Maximized;
@@ -98,7 +109,33 @@ namespace RoleplayManager_Client {
         }
 
         private void Btn_Github_Click(object sender,RoutedEventArgs e) {
-            System.Diagnostics.Process.Start("https://github.com/Njorgrim/Roleplay-Manager");
+            string url = "https://github.com/Njorgrim/Roleplay-Manager";
+
+            try {
+                Process.Start(url);
+            } catch {
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) {
+                    url = url.Replace("&","^&");
+                    Process.Start(new ProcessStartInfo("cmd",$"/c start {url}") { CreateNoWindow = true });
+                } else {
+                    throw;
+                }
+            }
+        }
+
+        #endregion
+
+        #region Plugin Functionality
+
+        public PluginButton CreatePluginButton(string name, UserControl uc) {
+            PluginButton pb = new PluginButton(name, uc);
+            lv_pluginList.Add(pb);
+            return pb;
+        }
+
+        public void AddPluginFrameToGrid(UserControl uc) {
+            PluginContainer.Children.Clear();
+            PluginContainer.Children.Add(uc);
         }
 
         #endregion
@@ -106,7 +143,7 @@ namespace RoleplayManager_Client {
         #region Chat Functionality
 
         private void Btn_Send_Click(object sender,RoutedEventArgs e) {
-            ChatBox.AppendText("\n" + username + ": " + InputBox.Text);
+            ChatBox.AppendText(username + ": " + InputBox.Text + "\n");
             Net.TCPClient.SendChatMessage(InputBox.Text);
             InputBox.Text = "";
             ChatBox.ScrollToEnd();
@@ -114,7 +151,7 @@ namespace RoleplayManager_Client {
 
         private void InputBox_KeyDown(object sender,System.Windows.Input.KeyEventArgs e) {
             if(e.Key == System.Windows.Input.Key.Enter) {
-                ChatBox.AppendText("\n" + username + ": " + InputBox.Text);
+                ChatBox.AppendText(username + ": " + InputBox.Text + "\n");
                 Net.TCPClient.SendChatMessage(InputBox.Text);
                 InputBox.Text = "";
                 ChatBox.ScrollToEnd();
@@ -123,7 +160,7 @@ namespace RoleplayManager_Client {
 
         public static void WriteChatMessage(string msg) {
             mWindow.Dispatcher.Invoke(() => {
-                mWindow.ChatBox.AppendText("\n" + msg);
+                mWindow.ChatBox.AppendText(msg + "\n");
                 mWindow.ChatBox.ScrollToEnd();
             });
         }

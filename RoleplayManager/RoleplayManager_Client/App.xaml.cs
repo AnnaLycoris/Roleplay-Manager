@@ -9,6 +9,5 @@ using System.Windows;
 namespace RoleplayManager_Client {
 
     public partial class App:Application {
-
     }
 }

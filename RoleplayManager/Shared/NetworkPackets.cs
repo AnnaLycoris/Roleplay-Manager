@@ -8,6 +8,7 @@
         SConnectionOK = 1,
         SChatMessage = 2,
         SBroadcastUsernames = 3,
+        SPluginPacket = 4,
     }
 
     #endregion
@@ -20,6 +21,7 @@
         CConnectionOK = 1,
         CChatMessage = 2,
         CUsername = 3,
+        CPluginPacket = 4,
     }
 
     #endregion
